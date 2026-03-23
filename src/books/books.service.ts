@@ -53,13 +53,11 @@ export class BooksService {
     return updatedBook;
   }
 
-  async delete(id: string): Promise<{ deleted: boolean }> {
-    const result = await this.bookModel.deleteOne({ _id: id }).exec();
-
-    if (result.deletedCount === 0) {
-      throw new NotFoundException(`Книга с ID ${id} не найдена`);
+  async delete(id: string): Promise<Book> {
+    const deletedBook = await this.bookModel.findByIdAndDelete(id).exec();
+    if (!deletedBook) {
+      throw new NotFoundException('Книга не найдена');
     }
-
-    return { deleted: true };
+    return deletedBook;
   }
 }

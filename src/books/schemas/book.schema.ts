@@ -11,11 +11,11 @@ export class Book {
   @Prop({ required: true })
   description: string;
 
-  @Prop()
-  authors?: string;
+  @Prop({ required: false })
+  authors: string;
 
   @Prop({ default: false })
-  favorite?: boolean;
+  favorite: boolean;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);

@@ -33,20 +33,14 @@ export class BooksController {
 
   @Put(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') id: string, // передает объект всех параметров
     @Body() bookData: UpdateBookDto,
   ): Promise<Book> {
     return this.booksService.update(id, bookData);
-  }
+  } // инф о теле запроса
 
   @Delete(':id')
-  async delete(
-    @Param('id') id: string,
-  ): Promise<{ message: string; success: boolean }> {
-    const result = await this.booksService.delete(id);
-    return {
-      success: result.deleted,
-      message: result.deleted ? 'Книга удалена' : 'Книга не найдена',
-    };
+  async deleteOne(@Param('id') id: string): Promise<Book> {
+    return this.booksService.delete(id);
   }
 }
